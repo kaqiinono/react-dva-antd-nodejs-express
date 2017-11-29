@@ -2,7 +2,15 @@ const db = require('./db');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+var crypto = require('crypto');
 module.exports = function (app) {
+    _pwd=(pwd)=>{
+        let sha512 =  crypto.createHash('sha512');
+        let md5 =  crypto.createHash('md5');
+        let first_pwd = sha512.update(pwd).digest('hex')
+        let second_pwd = md5.update(first_pwd).digest('hex')
+        return first_pwd
+    }
     app.use(bodyParser.json());
     app.use(cookieParser("keyboard cat"));
     app.use(session({
@@ -18,7 +26,7 @@ module.exports = function (app) {
     //用户登录
     app.post('/api/user/login', function (req, res) {
         var name=req.body.name;
-        var pwd =req.body.pwd;
+        var pwd =_pwd(req.body.pwd);
         setTimeout(function(){
             db.userModel.findOne({name: req.body.name}, function(err, doc){
             if(!err){
@@ -49,7 +57,7 @@ module.exports = function (app) {
         var nickname = req.body.nickname;
         db.userModel.create({
             name:name,
-            pwd:pwd,
+            pwd:_pwd(pwd),
             nickname:nickname,
             point:10
         },function(err,doc){
@@ -624,10 +632,8 @@ app.post('/api/user/point',function(req,res){
     //密码修改
     app.post('/api/user/pwdchange',function(req,res){
         const name = req.session.name
-        const pwd = req.body.pwd
-        const newpwd = req.body.newpwd
-        console.log(pwd)
-        console.log(newpwd)
+        const pwd = _pwd(req.body.pwd)
+        const newpwd = _pwd(req.body.newpwd)
         db.userModel.findOne({name:name},(e,d)=>{
             if(pwd == d.pwd){
                 db.userModel.update({name:name},{pwd:newpwd},(e,d)=>{
