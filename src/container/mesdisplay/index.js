@@ -282,8 +282,7 @@ class mesDisplay extends Component {
             })
         })
     }
-    handleFavorite=(e)=>{
-        console.log(e.target.className)
+    handleFavorite=(e)=>{        
         fetch('/api/user/point',{
             method:'post',
             body:JSON.stringify({
@@ -301,9 +300,7 @@ class mesDisplay extends Component {
         .then((res)=>res.json())
         .then((res)=>{
             if(res.code==200){
-                this.setState({
-                    favorite:'heartaaa'
-                })
+                e.target.setAttribute('class', 'anticon anticon-heart-o heartaaa')
             }
             if(res.code==100){
                 alert('已经点过赞了')

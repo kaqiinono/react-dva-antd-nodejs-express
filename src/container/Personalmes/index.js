@@ -120,6 +120,7 @@ class Personal extends Component {
     }
     handlecheacktittle=(e)=>{
         const tittle = e.target.value.length
+        console.log(tittle)
         if(tittle == 0 ){
             this.setState({
                 titletip:'请输入标题'
@@ -127,7 +128,8 @@ class Personal extends Component {
         }
         if(tittle !=0 ){
             this.setState({
-                titletip:''
+                titletip:'',
+                istitleok:true
             })
         }
     }

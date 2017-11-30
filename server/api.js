@@ -27,7 +27,6 @@ module.exports = function (app) {
     app.post('/api/user/login', function (req, res) {
         var name=req.body.name;
         var pwd =_pwd(req.body.pwd);
-        setTimeout(function(){
             db.userModel.findOne({name: req.body.name}, function(err, doc){
             if(!err){
                 if(!doc){
@@ -46,9 +45,7 @@ module.exports = function (app) {
             }else{
                 console.log('连接超时');
             }
-        });
-        },5000)
-        
+        });      
     });
     // 用户注册
     app.post('/api/user/signup', function (req, res) {
@@ -324,10 +321,7 @@ module.exports = function (app) {
                                         const d1 = doc;
                                         db.userDetailsModel.findOne({name:req.session.name},(e,d)=>{
                                             if(!e){
-                                                setTimeout(function(){
-                                                    res.json({d1,d})
-                                                },5000)
-                                                
+                                                    res.json({d1,d})                                               
                                             }
                                         });
                                     })
@@ -465,7 +459,6 @@ module.exports = function (app) {
                                                         //十二月查询
                                                         db.DecModel.find({name:name},(e,d)=>{
                                                             DecMes.push(d)
-                                                            setTimeout(function(){
                                                                 res.json({
                                                                         Jan:JanMes,
                                                                         Feb:FebMes,
@@ -479,9 +472,7 @@ module.exports = function (app) {
                                                                         Oct:OctMes,
                                                                         Nov:NovMes,
                                                                         Dec:DecMes,
-                                                                    })
-                                                            },5000)
-                                                            
+                                                                    })                                                           
                                                         })
                                                     })
                                                 })
