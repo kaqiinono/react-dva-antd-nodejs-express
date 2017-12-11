@@ -6,15 +6,13 @@ class welcomeP extends Component {
     constructor(props) {
         super(props);
         this.state={
-            formLayout:'horizontal',
-            isloading:false,
-            wa:false
+            
         }
     }
     render(){
         return(
         <div>
-            {/* <LzEditor></LzEditor>  */}
+            测试测试
         </div>
         )
     }

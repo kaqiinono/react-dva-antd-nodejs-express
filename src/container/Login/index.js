@@ -39,7 +39,7 @@ class Login extends Component {
                 this.setState({
                     isloading:false
                 })
-                window.location.href='http://localhost:8000'
+                window.location.href='http://localhost:8000/layout'
             }
             if(res.code==100||res.code==200){
                 this.setState({

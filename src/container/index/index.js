@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import style from './index.less'
 import Login from '../Login/index'
 import sign from '../SignUp/index'
-import { Layout, Menu, Breadcrumb, Icon,Carousel } from 'antd';
+import { Layout,Carousel } from 'antd';
 import {  BrowserRouter as Router,
   Route,
   Link } from 'react-router-dom';
@@ -15,7 +15,20 @@ class iPage extends Component {
         }
     }
     componentDidMount(){  
-      
+        //自动登陆
+        fetch('/api/user/autologin',{
+            method:'get',
+            headers: {
+                'Content-Type': 'application/json'
+              },
+            credentials: 'include'
+        })
+        .then((res)=>res.json())
+        .then((res)=>{
+            if(res.code == 100){
+                window.location.href='http://localhost:8000/layout'
+            }
+        })
     }  
     render(){
         return(

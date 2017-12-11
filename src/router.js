@@ -10,12 +10,14 @@ import moodPage from './container/mood/index'
 import displayPage from './container/mesdisplay/index'
 import setPage from './container/userSet/index'
 import pwdchangePage from './container/pwdChange/index'
+import notFound from './container/404/index'
 function RouterConfig({ history }) {
   return(
   <Router history={history}>
       <Switch>
-      <Route exact path="/" component={layout}/>
-      <Route exact path="/lspage" component={lsPage} />
+      <Route exact path="/" component={lsPage}/>
+      <Route exact path="/layout" component={layout} />
+      <Route exact path="/404" component={notFound}/>
       {/* <Route   path="/login" component={loginPage} />
       <Route   path="/sign" component={signUpPage} />
       <Route   path="/personal" component={personPage} />

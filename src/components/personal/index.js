@@ -46,7 +46,7 @@ class Personal extends Component{
         .then((res)=>res.json())
         .then((res)=>{
             if(res.code==100){
-                alert('未登录')
+                window.location.href='http://localhost:8000/404'
                 return;
             }
             else{

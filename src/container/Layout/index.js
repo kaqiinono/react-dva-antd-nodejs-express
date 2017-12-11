@@ -37,7 +37,7 @@ class layoutPage extends Component {
         .then((res)=>res.json())
         .then((res)=>{
             if(res.code==100){
-                window.location.href='http://localhost:8000/#/lspage'
+                window.location.href='http://localhost:8000'
             }
         })
     }
@@ -67,7 +67,7 @@ class layoutPage extends Component {
                                 <Nav/>
                             </div>
                             <div className={style.rightSide}>
-                                <Route path='/' exact component={welcomeP}/>
+                                <Route path='/layout' exact component={welcomeP}/>
                                 <Route path='/personal' exact component={personal}/>
                                 <Route path='/find' exact component={find}/>
                                 <Route path='/mood' exact component={mood}/>

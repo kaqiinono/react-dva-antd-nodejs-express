@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var crypto = require('crypto');
+var MongoStore = require('connect-mongo')(session);
 module.exports = function (app) {
     _pwd=(pwd)=>{
         let sha512 =  crypto.createHash('sha512');
@@ -16,9 +17,12 @@ module.exports = function (app) {
     app.use(session({
         name:'snat',
         secret: 'keyboard cat', 
-        cookie: ({ maxAge:  1000*60*60*24*7 }),
+        cookie: ({ maxAge:  1000*60*2 }),
         resave: false,
-        saveUninitialized: true
+        saveUninitialized: true,
+        store:new MongoStore({
+            url:'mongodb://localhost/santu'
+        })
     }));
     app.all("*", function(req, res, next) { 
         next();
@@ -672,7 +676,11 @@ app.post('/api/user/point',function(req,res){
         res.json({code:200})
     })
     //自动登陆
-    //
+    app.get('/api/user/autologin',function(req,res){
+        if(req.session.name){
+            res.json({code:100})
+        }    
+    })
     //头像上传
     app.get('*', function(req, res){
         res.end('404');
